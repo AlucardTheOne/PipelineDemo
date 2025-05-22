@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Clone') {
             steps {
-                git 'https://github.com/AlucardTheOne/demo-app.git'
+                git 'https://github.com/AlucardTheOne/PipelineDemo.git'
             }
         }
 
