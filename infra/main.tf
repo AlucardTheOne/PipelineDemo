@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_instance" "demo" {
-  ami           = "ami-00f34bf9aeacdf007"
+  ami           = "ami-0c59a4b6c56e03e36"
   instance_type = "t2.micro"
   associate_public_ip_address = true
   vpc_security_group_ids = [aws_security_group.demo_sg.id]
