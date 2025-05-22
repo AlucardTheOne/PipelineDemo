@@ -5,6 +5,8 @@ provider "aws" {
 resource "aws_instance" "demo" {
   ami           = "ami-0c02fb55956c7d316"
   instance_type = "t2.micro"
+  associate_public_ip_address = true
+  vpc_security_group_ids = [aws_security_group.demo_sg.id]
 
   user_data = <<-EOF
               #!/bin/bash
@@ -20,9 +22,27 @@ resource "aws_instance" "demo" {
 }
 
 variable "region" {
-  default = "us-east-1"
+  default = "eu-north-1"
 }
 
 variable "image" {
-  default = "yourdockeruser/demo-app"
+  default = "alucardtheone/demo-app"
+}
+resource "aws_security_group" "demo_sg" {
+  name        = "jenkins-demo-sg"
+  description = "Allow HTTP from anywhere"
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
